@@ -12,6 +12,7 @@ a dedicated tmux pane — watch every step in real time without polluting your w
 | Skill | Description |
 |-------|-------------|
 | `tmux-delegate-task` | Dispatch subagent + auto-tail transcript in tmux pane with auto-cleanup |
+| `tmux-socket` | Detect active tmux socket and provide the correct `-L`/`-S` flag |
 
 ## Install
 

@@ -10,19 +10,21 @@ echo ""
 
 mkdir -p "$SKILLS_DIR"
 
-skill="tmux-delegate-task"
-src="$SCRIPT_DIR/skills/$skill"
-dst="$SKILLS_DIR/$skill"
+for skill in tmux-delegate-task tmux-socket; do
+  src="$SCRIPT_DIR/skills/$skill"
+  dst="$SKILLS_DIR/$skill"
+  [ ! -d "$src" ] && { echo "  ✗ Source not found: $src"; continue; }
 
-if [ "${1:-}" = "--symlink" ]; then
+  if [ "${1:-}" = "--symlink" ]; then
     [ -e "$dst" ] && rm -rf "$dst"
     ln -sfn "$src" "$dst"
     echo "  → Symlinked: $skill"
-else
+  else
     rm -rf "$dst"
     cp -r "$src" "$dst"
     echo "  ✓ Installed: $skill"
-fi
+  fi
+done
 
 echo ""
 echo "Done. Add to config.yaml:"
