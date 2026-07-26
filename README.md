@@ -44,6 +44,19 @@ The skill:
 2. Opens a tmux pane tailing the subagent's live transcript
 3. Auto-closes the pane when done (unless you say `--keep`)
 
+### Keep the Pane
+
+By default, auto-created panes are closed when the delegation finishes. Add
+`--keep` to leave the pane open for later review.
+
+```
+> run this with tmux-delegate-task, keep the pane after
+> don't close the pane
+> --keep
+```
+
+User-provided panes (`pane 3`) are never closed, regardless of `--keep`.
+
 ## Pane/Window Defaults
 
 | You say... | session | window | pane |

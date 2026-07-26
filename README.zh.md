@@ -43,6 +43,19 @@ pip install hermes-tmux-suite
 2. 在当前窗口自动 split 一个 tmux pane，tail 子代理的实时日志
 3. 任务完成后自动关闭 pane（除非你说 `--keep`）
 
+### 保留 Pane
+
+默认情况下，自动创建的 pane 会在 delegation 完成后关闭。加上 `--keep`
+可以保留 pane 以便事后查看。
+
+```
+> 用 tmux-delegate-task 跑这个，保留 pane
+> 别关 pane
+> --keep
+```
+
+用户指定的 pane（如 `pane 3`）永不自动关闭，不受 `--keep` 影响。
+
 ## Pane/窗口默认值
 
 | 你说... | session | window | pane |
