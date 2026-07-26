@@ -32,6 +32,8 @@ pip install hermes-tmux-suite
 
 ## 用法
 
+### tmux-delegate-task
+
 在 Hermes 中：
 
 ```
@@ -55,6 +57,29 @@ pip install hermes-tmux-suite
 ```
 
 用户指定的 pane（如 `pane 3`）永不自动关闭，不受 `--keep` 影响。
+
+### tmux-socket
+
+检测当前 tmux socket，返回正确的 `-L` 参数 — 适用于在脚本或其他 skill 中构造 tmux 命令。
+
+```bash
+# 一键检测，粘贴到任何脚本开头
+TMUX_FLAG=$(if [ -n "$TMUX" ]; then \
+  S=$(tmux display -p '#{socket_path}' 2>/dev/null); \
+  N=$(basename "$S"); \
+  [ "$N" != "default" ] && echo "-L $N"; \
+fi)
+
+# 然后所有 tmux 命令前加上
+tmux $TMUX_FLAG new-session -d -s my-session
+tmux $TMUX_FLAG send-keys -t my-session:0 "echo hello" Enter
+```
+
+| Socket | basename | TMUX_FLAG |
+|--------|----------|-----------|
+| `/tmp/tmux-1000/default` | `default` | `""`（空） |
+| `/tmp/tmux-1000/nested` | `nested` | `-L nested` |
+| 不在 tmux 中 | — | `""`（空） |
 
 ## Pane/窗口默认值
 

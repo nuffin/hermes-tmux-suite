@@ -33,6 +33,8 @@ pip install hermes-tmux-suite
 
 ## Usage
 
+### tmux-delegate-task
+
 In Hermes:
 
 ```
@@ -56,6 +58,30 @@ By default, auto-created panes are closed when the delegation finishes. Add
 ```
 
 User-provided panes (`pane 3`) are never closed, regardless of `--keep`.
+
+### tmux-socket
+
+Detects the active tmux socket and provides the correct `-L` flag — useful when
+constructing tmux commands in scripts or other skills.
+
+```bash
+# Inline one-liner for any script
+TMUX_FLAG=$(if [ -n "$TMUX" ]; then \
+  S=$(tmux display -p '#{socket_path}' 2>/dev/null); \
+  N=$(basename "$S"); \
+  [ "$N" != "default" ] && echo "-L $N"; \
+fi)
+
+# Then prefix all tmux commands
+tmux $TMUX_FLAG new-session -d -s my-session
+tmux $TMUX_FLAG send-keys -t my-session:0 "echo hello" Enter
+```
+
+| Socket | basename | TMUX_FLAG |
+|--------|----------|-----------|
+| `/tmp/tmux-1000/default` | `default` | `""` (empty) |
+| `/tmp/tmux-1000/nested` | `nested` | `-L nested` |
+| Not in tmux | — | `""` (empty) |
 
 ## Pane/Window Defaults
 
