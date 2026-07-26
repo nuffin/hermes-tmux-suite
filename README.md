@@ -31,16 +31,6 @@ Or via pip:
 pip install hermes-tmux-suite
 ```
 
-Add to skill-graph source_dirs in `config.yaml`:
-
-```yaml
-skills:
-  config:
-    skill-graph:
-      source_dirs:
-        - ~/.hermes/skills/devops/
-```
-
 ## Usage
 
 In Hermes:

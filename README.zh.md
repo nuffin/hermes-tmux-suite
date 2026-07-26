@@ -30,16 +30,6 @@ cd hermes-tmux-suite
 pip install hermes-tmux-suite
 ```
 
-在 `config.yaml` 中加入 skill-graph 源目录：
-
-```yaml
-skills:
-  config:
-    skill-graph:
-      source_dirs:
-        - ~/.hermes/skills/devops/
-```
-
 ## 用法
 
 在 Hermes 中：
