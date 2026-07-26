@@ -1,3 +1,5 @@
+[English](README.md) | [中文](README.zh.md)
+
 # Hermes Tmux Suite
 
 Tmux-integrated skill operations for [Hermes Agent](https://github.com/NousResearch/hermes-agent).
@@ -44,7 +46,7 @@ skills:
 In Hermes:
 
 ```
-> 在 infra session 的 hermes 窗口里用 tmux-delegate-task 跑 code review
+> run code review with tmux-delegate-task in the infra session, hermes window
 ```
 
 The skill:
