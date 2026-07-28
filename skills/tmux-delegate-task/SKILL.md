@@ -23,7 +23,7 @@ name: tmux-delegate-task
 platforms:
 - linux
 - macos
-version: 2.2.0
+version: 2.3.0
 ---
 
 # Tmux Delegate Task — Live Transcript in Tmux Pane
@@ -230,6 +230,11 @@ tmux send-keys -t agora-runtime:doc-diagrams 'cd /home/hauzer/studio/hermes/proj
 ### Pitfalls (Direct Mode)
 
 - **🔴 Shell quoting is the #1 failure point.** `tmux send-keys` + multi-line `hermes chat -q` with double-quote nesting is fragile. Always prefer a single-line prompt. For long prompts, use the temp-file pattern above.
+- **🔴 `!` triggers bash history expansion even inside double quotes.** If the prompt contains `!Diagram` / `![` / `!` anywhere, prepend `set +H;` to disable history expansion:
+  ```bash
+  tmux send-keys -t S:W 'set +H; cd /path && hermes chat -q "prompt text with !Diagram markup"' Enter
+  ```
+  Without `set +H`, bash interprets `!D` as a history event reference and the command fails silently or with a cryptic error.
 - **No auto-cleanup.** Unlike Delegate + Tail mode, there's no script to auto-close the pane. The user must close it themselves or ask.
 - **No transcript saved.** The agent's output only lives in the tmux scrollback. If the user wants a permanent record, use Delegate + Tail mode.
 - **Pane lifecycle:** Don't close a pane the user is actively watching. Only close on explicit request.
